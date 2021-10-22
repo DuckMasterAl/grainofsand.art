@@ -22,6 +22,10 @@ async function submitCommissionForm() {
     document.getElementById('actual-form').style.display = 'none';
     document.getElementById('success-form').style.display = 'block';
   }
+  else if (response.status == 401) {
+    document.getElementById('form-error').innerHTML = 'You must <a href="/discord" target="_blank">join our discord</a> to make a commission.';
+    document.getElementById('form-error').style.display = 'block';
+  }
   else {
     document.getElementById('form-error').innerHTML = 'Invalid server response. Please let us know about this in our discord.';
     document.getElementById('form-error').style.display = 'block';

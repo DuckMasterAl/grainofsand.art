@@ -48,7 +48,7 @@ async def homepage():
 async def commission_info():
     try:
         user = await discord.fetch_user()
-        user_data = {"username": f"{user.username}#{user.discriminator}", "avatar": f"https://cdn.discordapp.com/embed/avatars/{user.discriminator % 5}.png" if user.avatar_url is None else user.avatar_url[:-4], "id": user.id, "email": user.email}
+        user_data = {"username": f"{user.username}#{user.discriminator}", "avatar": f"https://cdn.discordapp.com/embed/avatars/{int(user.discriminator) % 5}.png" if user.avatar_url is None else user.avatar_url[:-4], "id": user.id, "email": user.email}
     except quart_discord.exceptions.Unauthorized:
         user_data = None
     return await render_template("commission.html", avatar=cache.avatar, accent_color=cache.border_color, pronouns=cache.pronouns, socials=cache.socials, discord=user_data, prices=cache.prices)
@@ -72,12 +72,10 @@ async def submit_commission():
         data=json.dumps({"name": f"art-{user.name}", "type": 0, "position": 0, "parent_id": str(config.category_id), "topic": f"Email: {user.email}",
         "permission_overwrites": [{"id": str(user.id), "type": 1, "allow": "3072"}, {"id": str(config.guild_id), "type": 0, "deny": "1024"}, {"id": str(config.admin_role_id), "type": 0, "allow": "1024"}]})) as r:
             channel = await r.json()
-            print(channel)
 
         async with session.post(f'https://discord.com/api/v9/channels/{channel["id"]}/messages', headers={"Authorization": f"Bot {tokens.bot_token}", "content-type": "application/json"},
         data=json.dumps({"content": f"<@{user.id}> <@&{config.admin_role_id}>", "embeds": [{"color": 3447003, "author": {"name": f"New Commission from {user.name}", "icon_url": str(user.avatar_url)}, "description": str(description)}]})) as r:
             message = await r.json()
-            print(message)
 
         async with session.put(f'https://discord.com/api/v9/channels/{channel["id"]}/pins/{message["id"]}', headers={"Authorization": f"Bot {tokens.bot_token}", "content-type": "application/json"}) as r:
             pass
@@ -100,7 +98,6 @@ async def admin_form():
         return redirect(url_for('homepage'))
     data = (await request.form).to_dict()
     new_images = (await request.files).to_dict(flat=False)
-    print(new_images)
     data_to_dump = {"pronouns": {"name": data['pronoun-name'], "color": data['pronoun-color'], "link": data['pronoun-link']},
                     "socials": {"discord": data['socials-discord'], "twitter": data['socials-twitter'], "twitch": data['socials-twitch'], "youtube": data['socials-youtube']},
                     "prices": {"sticker": data['prices-sticker'], "pfp": data['prices-pfp'], "banner": data['prices-banner'], "ref": data['prices-ref'], "animation": data['prices-animation']}}
