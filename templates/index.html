@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'include/meta-tags.html' %}
+  <style>
+  #gallery > img {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  </style>
+</head>
+<header>
+  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; padding-top: 10px;">
+        <img src="{{avatar}}" id="avatar" style="border: 3.5px solid {{accent_color}};" alt="Discord Avatar"/>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-left: 10px;">
+          <h1 style="margin-bottom: 0px; color: pink; letter-spacing: 3px;">grain of sand</h1>
+          <p style="margin-top: 0px; margin-bottom: 2px;">Artist - <a href="{{pronouns['link']}}" style="color: orange;" rel="noopener">{{pronouns['name']}}</a></p>
+          <!--sse --><hr style="color: white; width: 100%; margin-bottom: 5px;"/>
+          <div id="socials" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+            <span><a href="{{socials['discord']}}"><svg width="33" height="31" viewBox="0 0 71 55" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#ffffff"></path></svg></a></span>
+            <span><a href="{{socials['twitter']}}"><svg width="30" height="30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 248 204" xml:space="preserve"><path d="M221.95,51.29c0.15,2.17,0.15,4.34,0.15,6.53c0,66.73-50.8,143.69-143.69,143.69v-0.04 C50.97,201.51,24.1,193.65,1,178.83c3.99,0.48,8,0.72,12.02,0.73c22.74,0.02,44.83-7.61,62.72-21.66 c-21.61-0.41-40.56-14.5-47.18-35.07c7.57,1.46,15.37,1.16,22.8-0.87C27.8,117.2,10.85,96.5,10.85,72.46c0-0.22,0-0.43,0-0.64 c7.02,3.91,14.88,6.08,22.92,6.32C11.58,63.31,4.74,33.79,18.14,10.71c25.64,31.55,63.47,50.73,104.08,52.76 c-4.07-17.54,1.49-35.92,14.61-48.25c20.34-19.12,52.33-18.14,71.45,2.19c11.31-2.23,22.15-6.38,32.07-12.26 c-3.77,11.69-11.66,21.62-22.2,27.93c10.01-1.18,19.79-3.86,29-7.95C240.37,35.29,231.83,44.14,221.95,51.29z" fill="white"></path></svg></a></span>
+            <span><a href="{{socials['twitch']}}"><svg width="25" height="30" viewBox="0 0 256 268" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid"><path d="M17.4579119,0 L0,46.5559188 L0,232.757287 L63.9826001,232.757287 L63.9826001,267.690956 L98.9144853,267.690956 L133.811571,232.757287 L186.171922,232.757287 L256,162.954193 L256,0 L17.4579119,0 Z M40.7166868,23.2632364 L232.73141,23.2632364 L232.73141,151.29179 L191.992415,192.033461 L128,192.033461 L93.11273,226.918947 L93.11273,192.033461 L40.7166868,192.033461 L40.7166868,23.2632364 Z M104.724985,139.668381 L127.999822,139.668381 L127.999822,69.843872 L104.724985,69.843872 L104.724985,139.668381 Z M168.721862,139.668381 L191.992237,139.668381 L191.992237,69.843872 L168.721862,69.843872 L168.721862,139.668381 Z" fill="#fff"></path></svg></a></span>
+            <span style="padding-left: 10px; padding-bottom: 2px;"><a href="{{socials['youtube']}}"><svg xmlns="http://www.w3.org/2000/svg" height="36" width="36" viewBox="-35.20005 -41.33325 305.0671 247.9995"><path d="M93.333 117.559V47.775l61.334 34.893zm136.43-91.742c-2.699-10.162-10.651-18.165-20.747-20.881C190.716 0 117.333 0 117.333 0S43.951 0 25.651 4.936C15.555 7.652 7.603 15.655 4.904 25.817 0 44.236 0 82.667 0 82.667s0 38.429 4.904 56.849c2.699 10.163 10.65 18.165 20.747 20.883 18.3 4.934 91.682 4.934 91.682 4.934s73.383 0 91.683-4.934c10.096-2.718 18.048-10.72 20.747-20.883 4.904-18.42 4.904-56.85 4.904-56.85s0-38.43-4.904-56.849" fill="#fff"></path></svg></a></span>
+          </div><!--/sse -->
+        </div>
+      </div>
+      <a href="{{url_for('commission_info')}}" style="margin-top: 13px; margin-bottom: 30px;" class="button">Commission Prices and Information</a>
+    </div>
+</header>
+<body>
+  <div style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-evenly;" id="gallery">
+    {% for x in gallery %}
+    <a href="static/gallery/raw/{{x}}"><img src="static/gallery/{{x}}" alt="Art example ({{x}})"/></a>
+    {% endfor %}
+  </div>
+  <!-- <div style="display: flex; flex-direction: row;">
+    <div style="background-color: white; height: 40%;">
+      <h2>Commission Information</h2>
+    </div>
+    <div>
+      <h2>Commission Form</h2>
+    </div>
+  </div> -->
+</body>
+{% include 'include/footer.html' %}
+</html>
