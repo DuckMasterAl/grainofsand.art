@@ -4,11 +4,11 @@ pronouns = {}
 socials = {}
 prices = {}
 
-import asyncio, json, sys, aiohttp, tokens, os
+import asyncio, json, sys, aiohttp, tokens, os, config
 async def recache(cache):# https://pgjones.gitlab.io/quart/how_to_guides/background_tasks.html
     while True:
         async with aiohttp.ClientSession() as session:# avatar and border
-            async with session.get('https://discord.com/api/v9/users/519482266473332736', headers={"Authorization": f"Bot {tokens.bot_token}"}) as r:
+            async with session.get(f'https://discord.com/api/v9/users/{config.userid}', headers={"Authorization": f"Bot {tokens.bot_token}"}) as r:
                 js = await r.json()
         cache.avatar = f"https://cdn.discordapp.com/embed/avatars/{int(js['discriminator']) % 5}.png" if js['avatar'] is None else f"https://cdn.discordapp.com/avatars/{js['id']}/{js['avatar']}"
         cache.border_color = js['banner_color']

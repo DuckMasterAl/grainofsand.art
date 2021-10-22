@@ -92,14 +92,13 @@ async def submit_commission():
 
 @app.route('/admin')
 async def admin():
-    if get_userid() not in [443217277580738571, 519482266473332736]:
+    if get_userid() not in [443217277580738571, config.userid]:
         return redirect(url_for('homepage'))
     return await render_template("admin.html", avatar=cache.avatar, accent_color=cache.border_color, pronouns=cache.pronouns, socials=cache.socials, prices=cache.prices, gallery=cache.images)
 
 @app.route('/api/admin-form', methods=["POST"])
 async def admin_form():
-    user = await discord.fetch_user()
-    if get_userid() not in [443217277580738571, 519482266473332736]:
+    if get_userid() not in [443217277580738571, config.userid]:
         return redirect(url_for('homepage'))
     data = (await request.form).to_dict()
     new_images = (await request.files).to_dict(flat=False)
@@ -145,8 +144,7 @@ async def admin_form():
 
 @app.route('/api/admin-image', methods=["DELETE"])
 async def admin_delete_image():
-    user = await discord.fetch_user()
-    if get_userid() not in [443217277580738571, 519482266473332736]:
+    if get_userid() not in [443217277580738571, config.userid]:
         return redirect(url_for('homepage'))
     try:
         form_list = await request.data
