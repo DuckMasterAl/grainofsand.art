@@ -39,13 +39,6 @@ if sys.platform != 'linux':# Add no cache headers if running locally
 async def schedule_cache():
     asyncio.ensure_future(cache.recache(cache))
 
-def get_userid():
-    try:
-        return session['DISCORD_USER_ID']
-    except KeyError:
-        pass
-    return None
-
 @app.route('/')
 async def homepage():
     return await render_template("index.html", avatar=cache.avatar, accent_color=cache.border_color, pronouns=cache.pronouns, socials=cache.socials, gallery=cache.images)
@@ -61,6 +54,7 @@ async def commission_info():
     return await render_template("commission.html", avatar=cache.avatar, accent_color=cache.border_color, pronouns=cache.pronouns, socials=cache.socials, discord=user_data, prices=cache.prices)
 
 @app.route('/api/submit-commission', methods=["POST"])
+@quart_discord.requires_authorization
 async def submit_commission():
     try:
         form_list = await request.data
@@ -91,14 +85,18 @@ async def submit_commission():
     return jsonify({"error": False, "message": "Commission ticket created successfully."}), 200
 
 @app.route('/admin')
+@quart_discord.requires_authorization
 async def admin():
-    if get_userid() not in [443217277580738571, config.userid]:
+    user = await discord.fetch_user()
+    if user.id not in [443217277580738571, config.userid]:
         return redirect(url_for('homepage'))
     return await render_template("admin.html", avatar=cache.avatar, accent_color=cache.border_color, pronouns=cache.pronouns, socials=cache.socials, prices=cache.prices, gallery=cache.images)
 
 @app.route('/api/admin-form', methods=["POST"])
+@quart_discord.requires_authorization
 async def admin_form():
-    if get_userid() not in [443217277580738571, config.userid]:
+    user = await discord.fetch_user()
+    if user.id not in [443217277580738571, config.userid]:
         return redirect(url_for('homepage'))
     data = (await request.form).to_dict()
     new_images = (await request.files).to_dict(flat=False)
@@ -143,8 +141,10 @@ async def admin_form():
     return await render_template("admin_form.html")
 
 @app.route('/api/admin-image', methods=["DELETE"])
+@quart_discord.requires_authorization
 async def admin_delete_image():
-    if get_userid() not in [443217277580738571, config.userid]:
+    user = await discord.fetch_user()
+    if user.id not in [443217277580738571, config.userid]:
         return redirect(url_for('homepage'))
     try:
         form_list = await request.data
