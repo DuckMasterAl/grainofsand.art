@@ -48,7 +48,7 @@ async def homepage():
 async def commission_info():
     try:
         user = await discord.fetch_user()
-        user_data = {"username": f"{user.username}#{user.discriminator}", "avatar": user.avatar_url[:-4], "id": user.id, "email": user.email}
+        user_data = {"username": f"{user.username}#{user.discriminator}", "avatar": f"https://cdn.discordapp.com/embed/avatars/{user.discriminator % 5}.png" if user.avatar_url is None else user.avatar_url[:-4], "id": user.id, "email": user.email}
     except quart_discord.exceptions.Unauthorized:
         user_data = None
     return await render_template("commission.html", avatar=cache.avatar, accent_color=cache.border_color, pronouns=cache.pronouns, socials=cache.socials, discord=user_data, prices=cache.prices)
